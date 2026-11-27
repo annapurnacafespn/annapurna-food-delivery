@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annapurna Cafe | Food Delivery</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fffdf0;color:#292929}
+header{background:#174d27;color:white;padding:20px;text-align:center}
+header h1{margin:0;font-size:30px}
+header p{margin:7px 0 0}
+.hero{background:#e8f5b5;text-align:center;padding:30px 15px}
+.hero h2{color:#245b24;font-size:26px}
+.hero p{font-size:16px}
+.info{padding:12px;text-align:center;background:#fff2c0;font-weight:bold}
+h2.section{text-align:center;color:#245b24;margin:25px 0 15px}
+.menu{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:12px}
+.item{background:white;border-radius:12px;padding:16px 10px;text-align:center;box-shadow:0 2px 8px #0001}
+.food{font-size:35px}
+.item h3{font-size:16px;margin:8px 0}
+.price{color:#16833a;font-size:19px;font-weight:bold}
+.item button,.orderbtn{background:#24833c;color:white;border:0;padding:10px 16px;border-radius:7px;font-weight:bold;margin-top:10px}
+.cart{background:white;margin:15px;padding:18px;border-radius:12px;box-shadow:0 2px 8px #0001}
+.cartrow{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #eee}
+.cartrow button{border:0;background:#f3dddd;padding:5px 9px;border-radius:5px}
+.total{font-size:20px;font-weight:bold;color:#17652b;margin-top:15px}
+.orderbtn{width:100%;font-size:17px;padding:14px}
+footer{background:#174d27;color:white;text-align:center;padding:22px;margin-top:25px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🌿 ANNAPURNA CAFE</h1>
+<p>Delicious Food • Great Mood ❤️</p>
+</header>
+
+<section class="hero">
+<h2>स्वाद भी, प्यार भी!</h2>
+<p>आपका पसंदीदा खाना अब आपके मोबाइल पर</p>
+<strong>🍽️ Order Your Favourite Food</strong>
+</section>
+
+<div class="info">
+🚚 सभी ऑर्डर पर FREE DELIVERY
+</div>
+
+<h2 class="section">हमारा मेन्यू 🍴</h2>
+<div class="menu" id="menu"></div>
+
+<h2 class="section">🛒 आपका Cart</h2>
+<div class="cart">
+<div id="cartitems">अभी आपका Cart खाली है।</div>
+<div class="total">कुल राशि: ₹<span id="total">0</span></div>
+<button class="orderbtn" onclick="checkout()">WhatsApp से ऑर्डर करें</button>
+</div>
+
+<footer>
+<h3>ANNAPURNA CAFE</h3>
+📍 Near Varun Arjun Medical College & Rohilkhand Hospital<br>
+Banthra, Shahjahanpur, UP - 242307<br>
+🚚 Free Home Delivery<br>
+© 2026 Annapurna Cafe
+</footer>
+
+<script>
+const CAFE_WHATSAPP = ""; 
+// यहां बाद में कैफे का WhatsApp नंबर डालेंगे: 91XXXXXXXXXX
+
+const foods=[
+["Veg Maggi",69,"🍜"],
+["Roast Sandwich",69,"🥪"],
+["Raw Sandwich",69,"🥪"],
+["Sandwich Pizza",129,"🍕"],
+["Chai",20,"☕"],
+["Band Makkhan",30,"🍞"],
+["Cold Coffee",89,"🥤"],
+["Mosambi Juice",59,"🍹"],
+["Anar Juice",89,"🥤"],
+["Nimbu Pani",20,"🍋"],
+["Jal Jeera",30,"🥤"],
+["Burger",69,"🍔"],
+["Pani Puri (6 pcs)",30,"🥗"],
+["Cheese Burger",99,"🍔"],
+["Cheese Sandwich",99,"🥪"],
+["Water",10,"💧"],
+["Dhai Chatni Puri Chat",40,"🥣"]
+];
+
+let cart={};
+
+const menu=document.getElementById("menu");
+foods.forEach((food,i)=>{
+menu.innerHTML+=`
+<div class="item">
+<div class="food">${food[2]}</div>
+<h3>${food[0]}</h3>
+<div class="price">₹${food[1]}</div>
+<button onclick="add(${i})">Add +</button>
+</div>`;
+});
+
+function add(i){
+cart[i]=(cart[i]||0)+1;
+showCart();
+}
+
+function change(i,n){
+cart[i]+=n;
+if(cart[i]<=0)delete cart[i];
+showCart();
+}
+
+function showCart(){
+let html="",sum=0;
+for(let i in cart){
+let f=foods[i],qty=cart[i];
+sum+=f[1]*qty;
+html+=`<div class="cartrow">
+<span>${f[0]} × ${qty}<br>₹${f[1]*qty}</span>
+<span>
+<button onclick="change(${i},-1)">−</button>
+<button onclick="change(${i},1)">+</button>
+</span></div>`;
+}
+document.getElementById("cartitems").innerHTML=
+html||"अभी आपका Cart खाली है।";
+document.getElementById("total").innerText=sum;
+}
+
+function checkout(){
+if(Object.keys(cart).length===0){
+alert("पहले खाने का सामान Cart में जोड़ें।");
+return;
+}
+if(!CAFE_WHATSAPP){
+alert("WhatsApp ऑर्डर चालू करने के लिए कैफे का WhatsApp नंबर सेट करना बाकी है।");
+return;
+}
+let msg="नमस्ते Annapurna Cafe! मेरा ऑर्डर:\n\n";
+let sum=0;
+for(let i in cart){
+let f=foods[i],qty=cart[i];
+msg+=f[0]+" x "+qty+" = ₹"+(f[1]*qty)+"\n";
+sum+=f[1]*qty;
+}
+msg+="\nकुल राशि: ₹"+sum;
+msg+="\nDelivery: FREE";
+window.open("https://wa.me/"+CAFE_WHATSAPP+"?text="+encodeURIComponent(msg),"_blank");
+}
+</script>
+</body>
+</html>
