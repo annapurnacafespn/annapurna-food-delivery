@@ -1,155 +1,156 @@
-
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Annapurna Cafe | Food Delivery</title>
+<meta name="theme-color" content="#b91625">
+<title>Annapurna Cafe | Order Online</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#fffdf0;color:#292929}
-header{background:#174d27;color:white;padding:20px;text-align:center}
-header h1{margin:0;font-size:30px}
-header p{margin:7px 0 0}
-.hero{background:#e8f5b5;text-align:center;padding:30px 15px}
-.hero h2{color:#245b24;font-size:26px}
-.hero p{font-size:16px}
-.info{padding:12px;text-align:center;background:#fff2c0;font-weight:bold}
-h2.section{text-align:center;color:#245b24;margin:25px 0 15px}
-.menu{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:12px}
-.item{background:white;border-radius:12px;padding:16px 10px;text-align:center;box-shadow:0 2px 8px #0001}
-.food{font-size:35px}
-.item h3{font-size:16px;margin:8px 0}
-.price{color:#16833a;font-size:19px;font-weight:bold}
-.item button,.orderbtn{background:#24833c;color:white;border:0;padding:10px 16px;border-radius:7px;font-weight:bold;margin-top:10px}
-.cart{background:white;margin:15px;padding:18px;border-radius:12px;box-shadow:0 2px 8px #0001}
-.cartrow{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #eee}
-.cartrow button{border:0;background:#f3dddd;padding:5px 9px;border-radius:5px}
-.total{font-size:20px;font-weight:bold;color:#17652b;margin-top:15px}
-.orderbtn{width:100%;font-size:17px;padding:14px}
-footer{background:#174d27;color:white;text-align:center;padding:22px;margin-top:25px;line-height:1.7}
+:root{--red:#c51f2c;--dark:#641019;--green:#16843b;--ink:#202124;--muted:#6b7280;--bg:#f6f6f6;--line:#ececec}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.top{background:linear-gradient(110deg,#570b12,#b91625);color:white;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5;box-shadow:0 2px 10px #0002}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:21px}.logo{width:42px;height:42px;border:2px solid #fff;border-radius:50%;display:grid;place-items:center;font-size:24px}
+.top button{border:0;background:transparent;color:white;font-size:24px}
+.wrap{max-width:850px;margin:auto;padding:14px}
+.hero{background:linear-gradient(120deg,#32130e,#7b2c17 55%,#24110d);color:white;border-radius:16px;padding:24px 18px;margin:4px 0 12px;position:relative;overflow:hidden}
+.hero:after{content:"🍽️";position:absolute;right:18px;bottom:4px;font-size:76px;opacity:.3}
+.hero h1{font-family:Georgia,serif;font-size:34px;margin:0 0 7px}.hero p{margin:0;color:#ffe8d9}.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{background:#ffffff20;border:1px solid #ffffff55;padding:7px 11px;border-radius:30px;font-size:12px}
+.address{background:white;border-radius:12px;padding:13px;margin:12px 0;color:#454545;font-size:14px}
+.search{width:100%;padding:14px 16px;border:1px solid #ddd;border-radius:12px;background:white;margin:4px 0 13px;outline-color:var(--red)}
+.cats{display:flex;gap:8px;overflow:auto;padding:2px 0 12px}.cat{white-space:nowrap;border:1px solid #ddd;background:white;border-radius:25px;padding:9px 15px;color:#333}.cat.active{background:var(--red);color:white;border-color:var(--red)}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:10px 2px}.section-head h2{font-size:22px;margin:8px 0}
+.veg{font-size:13px;color:var(--green);display:flex;align-items:center;gap:6px}
+.menu{display:grid;gap:10px}.item{background:white;border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;box-shadow:0 1px 3px #00000008}
+.foodpic{height:62px;width:64px;border-radius:11px;background:#fff0e8;display:grid;place-items:center;font-size:36px}
+.item h3{font-size:16px;margin:0 0 5px}.item small{color:var(--muted)}.price{font-weight:800;margin:7px 0}
+.add,.qty button{border:1px solid var(--red);background:white;color:var(--red);border-radius:9px;padding:7px 13px;font-weight:700}
+.qty{display:flex;align-items:center;gap:10px;color:var(--red);font-weight:700}.qty button{padding:5px 10px}
+.empty{background:white;border-radius:12px;padding:22px;text-align:center;color:var(--muted)}
+.cartbar{position:sticky;bottom:8px;background:var(--red);color:white;border-radius:13px;padding:13px 15px;margin:16px 0 8px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 14px #0003}
+.cartbar button{background:white;color:var(--red);border:0;border-radius:9px;padding:10px 14px;font-weight:800}
+.panel{background:white;border-radius:15px;padding:16px;margin:14px 0;box-shadow:0 1px 5px #0000000a}.panel h2{margin:0 0 14px;font-size:20px}
+.cartline{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:13px;font-weight:700}.field input,.field textarea,.field select{width:100%;padding:12px;border:1px solid #d8d8d8;border-radius:9px;background:#fff;outline-color:var(--red)}
+.field textarea{min-height:75px;resize:vertical}
+.radio-row{display:flex;gap:16px;flex-wrap:wrap;font-size:14px}.total{display:flex;justify-content:space-between;font-weight:800;font-size:18px;padding-top:12px}
+.checkout{width:100%;padding:14px;border:0;border-radius:10px;background:#16843b;color:white;font-weight:800;font-size:16px;margin-top:12px}
+.note{font-size:12px;color:var(--muted);line-height:1.5}.hidden{display:none!important}
+footer{text-align:center;color:#777;font-size:12px;padding:20px 8px 90px}
+@media(min-width:650px){.menu{grid-template-columns:1fr 1fr}.hero h1{font-size:42px}.item{grid-template-columns:70px 1fr auto}.foodpic{width:70px;height:70px}}
 </style>
 </head>
 <body>
-
-<header>
-<h1>🌿 ANNAPURNA CAFE</h1>
-<p>Delicious Food • Great Mood ❤️</p>
+<header class="top">
+  <div class="brand"><div class="logo">♨</div><div>Annapurna Cafe<small style="display:block;font-size:10px;font-weight:400;letter-spacing:1px">ORDER ONLINE</small></div></div>
+  <button aria-label="View cart" onclick="document.getElementById('cartPanel').scrollIntoView({behavior:'smooth'})">🛒 <span id="topCount">0</span></button>
 </header>
+<main class="wrap">
+  <section class="hero">
+    <h1>Annapurna Cafe</h1><p>Delicious Food • Fresh Juice • Quick Bites</p>
+    <div class="pills"><span class="pill">🥬 Pure Vegetarian</span><span class="pill">🛍️ Order Online</span><span class="pill">📲 WhatsApp Checkout</span></div>
+  </section>
+  <div class="address">📍 Near Varun Arjun Medical College and Rohilkhand Hospital, Banthra, Shahjahanpur, Uttar Pradesh</div>
+  <input id="search" class="search" type="search" placeholder="🔎 Search for dishes..." oninput="renderMenu()">
+  <nav class="cats" id="categories"></nav>
+  <div class="section-head"><h2>Our Menu</h2><span class="veg">🟩 Pure Veg</span></div>
+  <section class="menu" id="menu"></section>
 
-<section class="hero">
-<h2>स्वाद भी, प्यार भी!</h2>
-<p>आपका पसंदीदा खाना अब आपके मोबाइल पर</p>
-<strong>🍽️ Order Your Favourite Food</strong>
-</section>
+  <section class="panel" id="cartPanel">
+    <h2>🛒 Your Cart</h2>
+    <div id="cartItems"><div class="empty">Your cart is empty. Add your favourite food!</div></div>
+    <div class="total"><span>Grand Total</span><span id="grandTotal">₹0</span></div>
+  </section>
 
-<div class="info">
-🚚 सभी ऑर्डर पर FREE DELIVERY
-</div>
-
-<h2 class="section">हमारा मेन्यू 🍴</h2>
-<div class="menu" id="menu"></div>
-
-<h2 class="section">🛒 आपका Cart</h2>
-<div class="cart">
-<div id="cartitems">अभी आपका Cart खाली है।</div>
-<div class="total">कुल राशि: ₹<span id="total">0</span></div>
-<button class="orderbtn" onclick="checkout()">WhatsApp से ऑर्डर करें</button>
-</div>
-
-<footer>
-<h3>ANNAPURNA CAFE</h3>
-📍 Near Varun Arjun Medical College & Rohilkhand Hospital<br>
-Banthra, Shahjahanpur, UP - 242307<br>
-🚚 Free Home Delivery<br>
-© 2026 Annapurna Cafe
-</footer>
-
+  <section class="panel">
+    <h2>🧾 Customer & Order Details</h2>
+    <form id="orderForm">
+      <div class="field"><label for="customerName">Customer name *</label><input id="customerName" required maxlength="60" placeholder="Enter your name"></div>
+      <div class="field"><label for="customerPhone">Mobile number *</label><input id="customerPhone" required inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" placeholder="10-digit mobile number"></div>
+      <div class="field"><label>Order type *</label><div class="radio-row"><label><input type="radio" name="orderType" value="Delivery" checked onchange="toggleAddress()"> Home delivery</label><label><input type="radio" name="orderType" value="Pickup" onchange="toggleAddress()"> Self pickup</label></div></div>
+      <div class="field" id="addressField"><label for="customerAddress">Delivery address *</label><textarea id="customerAddress" placeholder="House/hostel, area, landmark"></textarea></div>
+      <div class="field"><label for="instructions">Cooking / order instructions (optional)</label><textarea id="instructions" placeholder="Any special instructions"></textarea></div>
+      <div class="field"><label>Payment preference *</label><div class="radio-row"><label><input type="radio" name="payment" value="Cash" checked> Cash</label><label><input type="radio" name="payment" value="UPI on delivery/pickup"> UPI at delivery/pickup</label></div></div>
+      <button class="checkout" type="submit">Send Order on WhatsApp</button>
+      <p class="note">Your order details will open in WhatsApp for confirmation by Annapurna Cafe. Your order is not confirmed until the cafe replies. No online payment is collected on this page.</p>
+    </form>
+  </section>
+  <footer>© <span id="year"></span> Annapurna Cafe · Shahjahanpur<br>Order support: +91 6393039484</footer>
+</main>
 <script>
-const CAFE_WHATSAPP = "916393039484"; 
-// यहां बाद में कैफे का WhatsApp नंबर डालेंगे: 91XXXXXXXXXX
-
-const foods=[
-["Veg Maggi",69,"🍜"],
-["Roast Sandwich",69,"🥪"],
-["Raw Sandwich",69,"🥪"],
-["Sandwich Pizza",129,"🍕"],
-["Chai",20,"☕"],
-["Band Makkhan",30,"🍞"],
-["Cold Coffee",89,"🥤"],
-["Mosambi Juice",59,"🍹"],
-["Anar Juice",89,"🥤"],
-["Nimbu Pani",20,"🍋"],
-["Jal Jeera",30,"🥤"],
-["Burger",69,"🍔"],
-["Pani Puri (6 pcs)",30,"🥗"],
-["Cheese Burger",99,"🍔"],
-["Cheese Sandwich",99,"🥪"],
-["Water",10,"💧"],
-["Dhai Chatni Puri Chat",40,"🥣"]
+const CAFE_WHATSAPP = "916393039484";
+const products = [
+ {id:"pani-puri",name:"Pani Puri",price:30,category:"Snacks",emoji:"🥣",note:"6 pcs per plate"},
+ {id:"dhai-chatni",name:"Dhai Chatni Puri Chat",price:40,category:"Snacks",emoji:"🥣",note:""},
+ {id:"veg-maggi",name:"Veg Maggi",price:69,category:"Snacks",emoji:"🍜",note:""},
+ {id:"roast-sandwich",name:"Roasted Sandwich",price:69,category:"Sandwich",emoji:"🥪",note:""},
+ {id:"raw-sandwich",name:"Raw Sandwich",price:69,category:"Sandwich",emoji:"🥪",note:""},
+ {id:"cheese-sandwich",name:"Cheese Sandwich",price:99,category:"Sandwich",emoji:"🧀",note:""},
+ {id:"sandwich-pizza",name:"Sandwich Pizza",price:129,category:"Pizza",emoji:"🍕",note:""},
+ {id:"burger",name:"Burger",price:69,category:"Burger",emoji:"🍔",note:""},
+ {id:"cheese-burger",name:"Cheese Burger",price:99,category:"Burger",emoji:"🍔",note:""},
+ {id:"chai",name:"Chai",price:20,category:"Beverages",emoji:"☕",note:""},
+ {id:"bun-makkhan",name:"Bun Makkhan",price:30,category:"Snacks",emoji:"🍞",note:""},
+ {id:"cold-coffee",name:"Cold Coffee",price:89,category:"Beverages",emoji:"🥤",note:""},
+ {id:"mosambi-juice",name:"Mosambi Juice",price:59,category:"Juices",emoji:"🍹",note:""},
+ {id:"anar-juice",name:"Anar Juice",price:89,category:"Juices",emoji:"🧃",note:""},
+ {id:"nimbu-pani",name:"Nimbu Pani",price:20,category:"Beverages",emoji:"🍋",note:""},
+ {id:"jal-jeera",name:"Jal Jeera",price:30,category:"Beverages",emoji:"🥤",note:""},
+ {id:"water",name:"Water",price:10,category:"Beverages",emoji:"💧",note:""}
 ];
-
-let cart={};
-
-const menu=document.getElementById("menu");
-foods.forEach((food,i)=>{
-menu.innerHTML+=`
-<div class="item">
-<div class="food">${food[2]}</div>
-<h3>${food[0]}</h3>
-<div class="price">₹${food[1]}</div>
-<button onclick="add(${i})">Add +</button>
-</div>`;
+let cart = {};
+let activeCategory = "All";
+const money = n => "₹" + n;
+function count(id){return cart[id]||0}
+function categories(){
+ const names=["All",...new Set(products.map(p=>p.category))];
+ document.getElementById("categories").innerHTML=names.map(c=>`<button class="cat ${activeCategory===c?'active':''}" onclick="setCategory('${c}')">${c}</button>`).join("");
+}
+function setCategory(c){activeCategory=c;categories();renderMenu()}
+function renderMenu(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const list=products.filter(p=>(activeCategory==="All"||p.category===activeCategory)&&p.name.toLowerCase().includes(q));
+ document.getElementById("menu").innerHTML=list.length?list.map(p=>`<article class="item"><div class="foodpic">${p.emoji}</div><div><h3>🟩 ${p.name}</h3>${p.note?`<small>${p.note}</small>`:""}<div class="price">${money(p.price)}</div></div><div>${count(p.id)?`<div class="qty"><button onclick="changeQty('${p.id}',-1)">−</button><span>${count(p.id)}</span><button onclick="changeQty('${p.id}',1)">+</button></div>`:`<button class="add" onclick="changeQty('${p.id}',1)">ADD +</button>`}</div></article>`).join(""):`<div class="empty">No matching dishes found.</div>`;
+}
+function changeQty(id,delta){cart[id]=Math.max(0,count(id)+delta);if(!cart[id])delete cart[id];renderMenu();renderCart()}
+function cartCount(){return Object.values(cart).reduce((a,b)=>a+b,0)}
+function cartTotal(){return products.reduce((sum,p)=>sum+p.price*count(p.id),0)}
+function renderCart(){
+ const chosen=products.filter(p=>count(p.id)>0);
+ document.getElementById("topCount").textContent=cartCount();
+ document.getElementById("cartItems").innerHTML=chosen.length?chosen.map(p=>`<div class="cartline"><span>${p.name} × ${count(p.id)}</span><strong>${money(p.price*count(p.id))}</strong></div>`).join(""):`<div class="empty">Your cart is empty. Add your favourite food!</div>`;
+ document.getElementById("grandTotal").textContent=money(cartTotal());
+}
+function toggleAddress(){
+ const delivery=document.querySelector('input[name="orderType"]:checked').value==="Delivery";
+ document.getElementById("addressField").classList.toggle("hidden",!delivery);
+ document.getElementById("customerAddress").required=delivery;
+}
+document.getElementById("orderForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ if(!cartCount()){alert("Please add at least one item to your cart.");return}
+ const name=document.getElementById("customerName").value.trim();
+ const phone=document.getElementById("customerPhone").value.trim();
+ if(!/^[6-9]\d{9}$/.test(phone)){alert("Please enter a valid 10-digit Indian mobile number.");return}
+ const type=document.querySelector('input[name="orderType"]:checked').value;
+ const address=document.getElementById("customerAddress").value.trim();
+ if(type==="Delivery"&&!address){alert("Please enter your delivery address.");return}
+ const payment=document.querySelector('input[name="payment"]:checked').value;
+ const lines=products.filter(p=>count(p.id)>0).map(p=>`• ${p.name} × ${count(p.id)} = ₹${p.price*count(p.id)}`);
+ const message=[
+ "🍽️ *NEW ORDER — ANNAPURNA CAFE*","",
+ `*Customer:* ${name}`,`*Mobile:* ${phone}`,`*Order type:* ${type}`,
+ ...(type==="Delivery"?[`*Address:* ${address}`]:[]),"",
+ "*Order items:*",...lines,"",
+ `*Total: ₹${cartTotal()}*`,`*Payment preference:* ${payment}`,
+ ...(document.getElementById("instructions").value.trim()?[`*Instructions:* ${document.getElementById("instructions").value.trim()}`]:[]),
+ "","Please confirm availability and order."
+ ].join("\n");
+ const url=`https://wa.me/${CAFE_WHATSAPP}?text=${encodeURIComponent(message)}`;
+ window.open(url,"_blank","noopener");
 });
-
-function add(i){
-cart[i]=(cart[i]||0)+1;
-showCart();
-}
-
-function change(i,n){
-cart[i]+=n;
-if(cart[i]<=0)delete cart[i];
-showCart();
-}
-
-function showCart(){
-let html="",sum=0;
-for(let i in cart){
-let f=foods[i],qty=cart[i];
-sum+=f[1]*qty;
-html+=`<div class="cartrow">
-<span>${f[0]} × ${qty}<br>₹${f[1]*qty}</span>
-<span>
-<button onclick="change(${i},-1)">−</button>
-<button onclick="change(${i},1)">+</button>
-</span></div>`;
-}
-document.getElementById("cartitems").innerHTML=
-html||"अभी आपका Cart खाली है।";
-document.getElementById("total").innerText=sum;
-}
-
-function checkout(){
-if(Object.keys(cart).length===0){
-alert("पहले खाने का सामान Cart में जोड़ें।");
-return;
-}
-if(!CAFE_WHATSAPP){
-alert("WhatsApp ऑर्डर चालू करने के लिए कैफे का WhatsApp नंबर सेट करना बाकी है।");
-return;
-}
-let msg="नमस्ते Annapurna Cafe! मेरा ऑर्डर:\n\n";
-let sum=0;
-for(let i in cart){
-let f=foods[i],qty=cart[i];
-msg+=f[0]+" x "+qty+" = ₹"+(f[1]*qty)+"\n";
-sum+=f[1]*qty;
-}
-msg+="\nकुल राशि: ₹"+sum;
-msg+="\nDelivery: FREE";
-window.open("https://wa.me/"+CAFE_WHATSAPP+"?text="+encodeURIComponent(msg),"_blank");
-}
+document.getElementById("year").textContent=new Date().getFullYear();
+categories();renderMenu();renderCart();toggleAddress();
 </script>
 </body>
 </html>
